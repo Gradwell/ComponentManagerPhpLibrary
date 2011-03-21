@@ -58,7 +58,7 @@ class PhpLibraryVersion extends ComponentCommandBase implements CommandInterface
 
         public function getCommandDesc()
         {
-                return 'show which version of ComponentManager is installed';
+                return 'show which version of php-library is installed';
         }
 
         public function  getCommandArgs()
