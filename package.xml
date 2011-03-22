@@ -57,7 +57,7 @@ ${contents}
       <package>
         <name>phix</name>
         <channel>pear.gradwell.com</channel>
-        <min>0.10.0</min>
+        <min>0.11.1</min>
         <max>1.999.9999</max>
       </package>
     </required>
