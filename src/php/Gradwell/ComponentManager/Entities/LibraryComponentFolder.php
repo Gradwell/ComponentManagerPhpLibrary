@@ -175,7 +175,7 @@ class LibraryComponentFolder extends ComponentFolder
 		}
 
 		$fp = \fopen($buildPropertiesFilename, 'a+');
-		\fwrite($fp, "$key = $value\n");
+		\fwrite($fp, "$key=$value\n");
 		\fclose($fp);
 	}
 
