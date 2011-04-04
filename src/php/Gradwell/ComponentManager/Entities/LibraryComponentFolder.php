@@ -233,12 +233,14 @@ class LibraryComponentFolder extends ComponentFolder
 	 * * improved build file
 	 * * new src/docs/ folder
 	 * * new pear.local property
+	 * * new project.channel property
 	 */
 	protected function upgradeFrom3To4()
 	{
 		$this->createFolders();
 		$this->createBuildFile();
-		$this->addBuildProperty('pear.local', '/var/www/pear.example.com');
+		$this->addBuildProperty('project.channel', 'pear.example.com');
+		$this->addBuildProperty('pear.local', '/var/www/${project.channel}');
 		$this->createDummyPhpFile();
 	}
 }

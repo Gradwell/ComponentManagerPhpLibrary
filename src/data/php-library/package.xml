@@ -4,7 +4,7 @@
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
   <name>${project.name}</name>
-  <channel>Your PEAR server</channel>
+  <channel>${project.channel}</channel>
   <summary>Summary goes here</summary>
   <description>
     Description goes here
