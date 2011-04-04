@@ -46,7 +46,7 @@ namespace Gradwell\ComponentManager\Entities;
 
 class LibraryComponentFolder extends ComponentFolder
 {
-        const LATEST_VERSION = 3;
+        const LATEST_VERSION = 4;
         const DATA_FOLDER = '@@DATA_DIR@@/ComponentManagerPhpLibrary/php-library';
 
         public function createComponent()
@@ -106,6 +106,7 @@ class LibraryComponentFolder extends ComponentFolder
                         'src/bin',
                         'src/data',
                         'src/www',
+			'src/docs',
                         'src/tests',
                         'src/tests/unit-tests',
                         'src/tests/unit-tests/bin',
@@ -120,18 +121,17 @@ class LibraryComponentFolder extends ComponentFolder
                         $folder = $this->folder . '/' . $folderToMake;
 
                         // does the folder already exist?
-                        if (is_dir($folder))
+                        if (!is_dir($folder))
                         {
-                                // yes it does ... nothing needed
-                                continue;
+                                // no it does not ... create it
+                                if (!mkdir ($folder))
+                                {
+                                        // it all went wrong
+                                        throw new \Exception('unable to create folder ' . $this->folder . '/' . $folderToMake);
+                                }
                         }
-
-                        // no it does not ... create it
-                        if (!mkdir ($folder))
-                        {
-                                // it all went wrong
-                                throw new \Exception('unable to create folder ' . $this->folder . '/' . $folderToMake);
-                        }
+                        
+                        $this->touchFile($folderToMake . '/.empty');
                 }
         }
 
@@ -165,6 +165,26 @@ class LibraryComponentFolder extends ComponentFolder
                 $this->copyFilesFromDataFolder(array('bootstrap.php'), '/src/tests/unit-tests/');
         }
 
+	protected function addBuildProperty($key, $value)
+	{
+		$buildPropertiesFilename = $this->folder . '/build.properties';
+
+		if (!\file_exists($buildPropertiesFilename))
+		{
+			$this->createBuildProperties();
+		}
+
+		$fp = \fopen($buildPropertiesFilename, 'a+');
+		\fwrite($fp, "$key = $value\n");
+		\fclose($fp);
+	}
+
+        protected function touchFile($filename)
+        {
+                $fullFilename = $this->folder . '/' . $filename;
+                \touch($fullFilename);
+        }
+
         /**
          * Upgrade a php-library to v2
          *
@@ -194,4 +214,20 @@ class LibraryComponentFolder extends ComponentFolder
         {
                 $this->createBuildFile();
         }
+
+	/**
+	 * Upgrade a php-library to v4
+	 * 
+	 * The changes between v3 and v4 are:
+	 *
+	 * * improved build file
+	 * * new src/docs/ folder
+	 * * new pear.local property
+	 */
+	protected function upgradeFrom3To4()
+	{
+		$this->createFolders();
+		$this->createBuildFile();
+		$this->addBuildProperty('pear.local', '/var/www/pear.example.com');
+	}
 }
