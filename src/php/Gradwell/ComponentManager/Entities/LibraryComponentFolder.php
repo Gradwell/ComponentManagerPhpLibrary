@@ -172,7 +172,7 @@ class LibraryComponentFolder extends ComponentFolder
 
 	protected function createDummyPhpFile()
 	{
-		$this->copyFilesFromDataFolder(array('dummy.php'), '/src/php');
+		$this->copyFilesFromDataFolder(array('dummy.php'), '/src/php/');
 	}
 
 	protected function addBuildProperty($key, $value)
