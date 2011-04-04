@@ -72,6 +72,11 @@ class LibraryComponentFolder extends ComponentFolder
                 // the unit tests
                 $this->createBootstrapFile();
 
+		// step 7: add a dummy PHP file so that an empty
+		// component can build-vendor once the metadata
+		// has been edited
+		$this->createDummyPhpFile();
+
                 // if we get here, job done
         }
 
@@ -165,6 +170,11 @@ class LibraryComponentFolder extends ComponentFolder
                 $this->copyFilesFromDataFolder(array('bootstrap.php'), '/src/tests/unit-tests/');
         }
 
+	protected function createDummyPhpFile()
+	{
+		$this->copyFilesFromDataFolder(array('dummy.php'), '/src/php');
+	}
+
 	protected function addBuildProperty($key, $value)
 	{
 		$buildPropertiesFilename = $this->folder . '/build.properties';
@@ -229,5 +239,6 @@ class LibraryComponentFolder extends ComponentFolder
 		$this->createFolders();
 		$this->createBuildFile();
 		$this->addBuildProperty('pear.local', '/var/www/pear.example.com');
+		$this->createDummyPhpFile();
 	}
 }
