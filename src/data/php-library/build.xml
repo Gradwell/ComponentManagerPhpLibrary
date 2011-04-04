@@ -183,7 +183,7 @@
   <!-- Populate vendor with the dependencies for this component -->
   <target name="build-vendor" depends="pear-package,setup-vendor">
     <echo>Populating vendor/ with dependencies</echo>
-    <exec command="phix pear:register-channels -p ${project.pkgdir}/package.xml" checkreturn="true" logoutput="true" />
+    <exec command="phix pear:register-channels" checkreturn="true" logoutput="true" />
     <exec command="pear -c ${project.tmpdir}/pear-config install --alldeps ${project.tarfile}" logoutput="true" checkreturn="true"/>
   </target>
 
@@ -217,13 +217,13 @@
       <fileset refid="wwwfiles"/>
       <fileset refid="docfiles"/>
     </copy>
-    <copy todir="${project.pkgdir}">
+    <copy todir="${project.builddir}">
       <fileset dir=".">
         <include name="package.xml" />
       </fileset>
     </copy>
 
-    <exec command="phix pear:expand-package-xml -p ${project.pkgdir}/package.xml" checkreturn="yes" logoutput="yes"/>
+    <exec command="phix pear:expand-package-xml" checkreturn="yes" logoutput="yes"/>
 
     <echo>Creating ${project.tarfile} PEAR package</echo>
 
