@@ -94,7 +94,7 @@ class LibraryComponentFolder extends ComponentFolder
                 while ($thisVersion < self::LATEST_VERSION)
                 {
                         $method = 'upgradeFrom' . $thisVersion . 'To' . ($thisVersion + 1);
-                        \call_user_func_array(array($this, $method));
+                        \call_user_func_array(array($this, $method), array());
                         $thisVersion++;
                         $this->editBuildPropertiesVersionNumber($thisVersion);
                 }
