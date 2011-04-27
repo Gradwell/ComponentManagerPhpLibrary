@@ -46,7 +46,7 @@ namespace Gradwell\ComponentManager\Entities;
 
 class LibraryComponentFolder extends ComponentFolder
 {
-        const LATEST_VERSION = 4;
+        const LATEST_VERSION = 5;
         const DATA_FOLDER = '@@DATA_DIR@@/ComponentManagerPhpLibrary/php-library';
 
         public function createComponent()
@@ -242,5 +242,17 @@ class LibraryComponentFolder extends ComponentFolder
 		$this->addBuildProperty('project.channel', 'pear.example.com');
 		$this->addBuildProperty('pear.local', '/var/www/${project.channel}');
 		$this->createDummyPhpFile();
+	}
+
+	/**
+	 * Upgrade a php-library to v5
+	 *
+	 * The changes between v4 and v5 are:
+	 *
+	 * * improved build file
+	 */
+	protected function upgradeFrom4To5()
+	{
+		$this->createBuildFile();
 	}
 }
