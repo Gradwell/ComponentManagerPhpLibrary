@@ -89,6 +89,8 @@
     <include name="*.md" />
   </fileset>
 
+  <import file="build.local.xml"/>
+  
   <!-- Tell the user what this build file supports -->
   <target name="help">
     <echo message="${project.name} ${project.version}: build.xml targets:" />
@@ -123,6 +125,8 @@
     <echo message="  of your PEAR channel" />
     <echo message="clean" />
     <echo message="  Remove all temporary folders created by this build file" />
+    <echo message="" />
+    <phingcall target="local-help" />
   </target>
 
   <!-- Run PHP lint on all of the source code -->

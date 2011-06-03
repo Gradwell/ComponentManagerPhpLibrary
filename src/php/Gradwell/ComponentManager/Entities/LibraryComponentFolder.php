@@ -46,7 +46,7 @@ namespace Gradwell\ComponentManager\Entities;
 
 class LibraryComponentFolder extends ComponentFolder
 {
-        const LATEST_VERSION = 5;
+        const LATEST_VERSION = 6;
         const DATA_FOLDER = '@@DATA_DIR@@/ComponentManagerPhpLibrary/php-library';
 
         public function createComponent()
@@ -142,7 +142,7 @@ class LibraryComponentFolder extends ComponentFolder
 
         protected function createBuildFile()
         {
-                $this->copyFilesFromDataFolder(array('build.xml'));
+                $this->copyFilesFromDataFolder(array('build.xml', 'build.local.xml'));
         }
 
         protected function createBuildProperties()
@@ -255,4 +255,9 @@ class LibraryComponentFolder extends ComponentFolder
 	{
 		$this->createBuildFile();
 	}
+
+        protected function upgradeFrom5To6()
+        {
+                $this->createBuildFile();
+        }
 }
